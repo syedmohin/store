@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -33,31 +34,31 @@ public class StockController {
 
     @DeleteMapping("delete/{stkId}")
     public ResponseEntity<Boolean> deleteStock(@PathVariable("stkId") String stkId) {
-        return ok(stockService.deleteRecord(stkId));
+        return ok(stockService.deleteRecord(stkId.toUpperCase()));
     }
 
     @PostMapping("updaterate/{stk}/{rate}")
     public ResponseEntity<Stock> updateRate(@PathVariable("stk") String stk,
                                             @PathVariable("rate") int rate) {
-        return ok(stockService.updateRate(stk, rate));
+        return ok(stockService.updateRate(stk.toUpperCase(), rate));
     }
 
     @PostMapping("updaterate/{stk}/{weight}")
     public ResponseEntity<Stock> updateweight(@PathVariable("stk") String stk,
                                               @PathVariable("weight") int weight) {
-        return ok(stockService.updateWeight(stk, weight));
+        return ok(stockService.updateWeight(stk.toUpperCase(), weight));
     }
 
     @PostMapping("updaterate/{stk}/{bal}")
     public ResponseEntity<Stock> updateBalance(@PathVariable("stk") String stk,
                                                @PathVariable("bal") int bal) {
-        return ok(stockService.updateBalance(stk, bal));
+        return ok(stockService.updateBalance(stk.toUpperCase(), bal));
     }
 
     @PostMapping("updaterate/{stk}/{vNO}")
     public ResponseEntity<Stock> updateVehicleName(@PathVariable("stk") String stk,
                                                    @PathVariable("vNo") String vNO) {
-        return ok(stockService.updateVehicleNo(stk, vNO));
+        return ok(stockService.updateVehicleNo(stk.toUpperCase(), vNO));
     }
 
 }

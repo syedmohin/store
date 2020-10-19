@@ -79,6 +79,7 @@ public class CustomerService {
     public Customer updateCrate(String custId, int newValue) {
         try {
             var s = findByCustomerId(custId);
+            System.out.println(s);
             s.setCrate(newValue);
             s.setReturnedCrate(newValue - s.getReturnedCrate());
             return customerRepository.save(s);
