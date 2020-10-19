@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: tmahsqnxuzvgnh
+    password: 7281e9c40267b9b3de875c42097888f1fdfba06c2973fb56f9e0d3662c088500
+    url: jdbc:postgresql://ec2-52-2-82-109.compute-1.amazonaws.com:5432/d5ftkcl8jndalr
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  main:
+    lazy-initialization: true
+server:
+  port: 8080
+
+jwt:
+    secret: storestore
