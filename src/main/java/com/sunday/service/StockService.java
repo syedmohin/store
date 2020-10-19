@@ -21,6 +21,7 @@ public class StockService {
     @Transactional
     public Stock insertData(Stock stock) {
         stock.setStockId(getLastCustomerId());
+        stock.setTotalAmount(stock.getWeight() * stock.getRate());
         if (stock.getBalance() == 0)
             stock.setComplete(true);
         return stockRepository.save(stock);

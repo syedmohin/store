@@ -41,6 +41,7 @@ public class CustomerService {
         if (customer.getBalance() == 0)
             customer.setComplete(true);
         customer.setReturnedCrate(0);
+        customer.setTotalAmount(customer.getRate() * customer.getWeight());
         customer.setCustomerId(getLastCustomerId());
         return customerRepository.save(customer);
     }
