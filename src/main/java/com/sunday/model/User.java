@@ -1,5 +1,6 @@
 package com.sunday.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class User {
     @Id
+    @JsonIgnore
     @GeneratedValue
     private Integer id;
     private String username;

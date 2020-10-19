@@ -1,5 +1,6 @@
 package com.sunday.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CustomerModifiedAmount implements Serializable {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate modifiedDate;
