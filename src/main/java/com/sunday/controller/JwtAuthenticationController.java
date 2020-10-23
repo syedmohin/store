@@ -26,11 +26,14 @@ public class JwtAuthenticationController {
     private final JwtUserDetailsService userDetailsService;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest ar) throws Exception {
+    public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest ar) throws Exception {
+        System.out.println(ar);
+        System.out.println(ar.getUsername());
         final var userDetails = userDetailsService.loadUserByUsername(ar.getUsername());
         authenticate(ar.getUsername(), ar.getPassword());
         final var token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token,ar.getUsername()));
+        var jwt = new JwtResponse(token, ar.getUsername());
+        return ResponseEntity.ok(jwt);
     }
 
     @PostMapping(value = "/register")

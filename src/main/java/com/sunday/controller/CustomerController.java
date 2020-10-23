@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("customer")
@@ -49,6 +50,11 @@ public class CustomerController {
         return ok(customerService.updateCrate(custId.toUpperCase(), crate));
     }
 
+    @GetMapping("one/{custId}")
+    public ResponseEntity<Customer> findByCustomerId(@PathVariable("custId") String custId) {
+        return ok(customerService.findByCustomerId(custId));
+    }
+
     @PostMapping("updaterate/{custId}/{rate}")
     public ResponseEntity<Customer> updateRate(@PathVariable("custId") String custId,
                                                @PathVariable("rate") int rate) {
@@ -67,7 +73,7 @@ public class CustomerController {
         return ok(customerService.updateWeight(custId.toUpperCase(), weight));
     }
 
-    @PostMapping("updateweight/{custId}/{name}")
+    @PostMapping("updatename/{custId}/{name}")
     public ResponseEntity<Customer> updateName(@PathVariable("custId") String custId,
                                                @PathVariable("name") String name) {
         return ok(customerService.updateCustomerName(custId.toUpperCase(), name));

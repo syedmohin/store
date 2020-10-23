@@ -47,9 +47,14 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer findByCustomerId(String cusId) throws Exception {
-        var customer = customerRepository.findByCustomerId(cusId);
-        return customer.orElseThrow(() -> new Exception("No record found!!!"));
+    public Customer findByCustomerId(String cusId) {
+        try {
+            var customer = customerRepository.findByCustomerId(cusId);
+            return customer.orElseThrow(() -> new Exception("No record found!!!"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Transactional

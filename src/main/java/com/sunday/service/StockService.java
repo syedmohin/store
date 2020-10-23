@@ -21,6 +21,7 @@ public class StockService {
     @Transactional
     public Stock insertData(Stock stock) {
         stock.setStockId(getLastCustomerId());
+        stock.setVehicleNo(stock.getVehicleNo().toUpperCase());
         stock.setTotalAmount(stock.getWeight() * stock.getRate());
         if (stock.getBalance() == 0)
             stock.setComplete(true);
@@ -111,6 +112,8 @@ public class StockService {
                 s.getStockModifiedAmount().add(sma);
                 s.setBalance(s.getTotalAmount() - (paid + newValue));
                 return stockRepository.save(s);
+            }else{
+                s.setBalance(0);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -24,8 +24,9 @@ public class PrinterController {
         return ResponseEntity.ok(list.get(0));
     }
 
-    @GetMapping("outprinter")
+    @PostMapping("outprinter")
     public ResponseEntity<Printer> setPrinter(@RequestBody Printer printer) {
+        printerRepository.deleteAll();
         return ResponseEntity.ok(printerRepository.save(printer));
     }
 }

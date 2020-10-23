@@ -43,22 +43,22 @@ public class StockController {
         return ok(stockService.updateRate(stk.toUpperCase(), rate));
     }
 
-    @PostMapping("updaterate/{stk}/{weight}")
+    @PostMapping("updateweight/{stk}/{weight}")
     public ResponseEntity<Stock> updateweight(@PathVariable("stk") String stk,
                                               @PathVariable("weight") int weight) {
         return ok(stockService.updateWeight(stk.toUpperCase(), weight));
     }
 
-    @PostMapping("updaterate/{stk}/{bal}")
+    @PostMapping("updatebalance/{stk}/{bal}")
     public ResponseEntity<Stock> updateBalance(@PathVariable("stk") String stk,
                                                @PathVariable("bal") int bal) {
         return ok(stockService.updateBalance(stk.toUpperCase(), bal));
     }
 
-    @PostMapping("updaterate/{stk}/{vNO}")
+    @PostMapping("updatevehicleno/{stk}/{vno}")
     public ResponseEntity<Stock> updateVehicleName(@PathVariable("stk") String stk,
-                                                   @PathVariable("vNo") String vNO) {
-        return ok(stockService.updateVehicleNo(stk.toUpperCase(), vNO));
+                                                   @PathVariable("vno") String vno) {
+        return ok(stockService.updateVehicleNo(stk.toUpperCase(), vno));
     }
 
 }
