@@ -22,14 +22,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userDao.findByUsername(username);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             var u = user.get();
             if (u.getUsername().equals(username)) {
                 return new org.springframework.security.core.userdetails.User(u.getUsername(), u.getPassword(), new ArrayList<>());
             } else {
                 throw new UsernameNotFoundException("User not found with username: " + username);
             }
-        }else{
+        } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
     }
@@ -39,6 +39,10 @@ public class JwtUserDetailsService implements UserDetailsService {
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         return userDao.save(newUser);
+    }
+
+    public boolean existsByUsername(String name) {
+        return userDao.existsByUsername(name);
     }
 
 }

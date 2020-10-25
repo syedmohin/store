@@ -1,11 +1,13 @@
 package com.sunday.controller;
 
 import com.sunday.config.JwtTokenUtil;
+import com.sunday.exception.UserAlreadyExistsException;
 import com.sunday.model.JwtRequest;
 import com.sunday.model.JwtResponse;
 import com.sunday.model.UserDTO;
 import com.sunday.service.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @CrossOrigin
@@ -27,18 +32,19 @@ public class JwtAuthenticationController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest ar) throws Exception {
-        System.out.println(ar);
-        System.out.println(ar.getUsername());
         final var userDetails = userDetailsService.loadUserByUsername(ar.getUsername());
         authenticate(ar.getUsername(), ar.getPassword());
         final var token = jwtTokenUtil.generateToken(userDetails);
         var jwt = new JwtResponse(token, ar.getUsername());
-        return ResponseEntity.ok(jwt);
+        return ok(jwt);
     }
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> saveUser(@RequestBody UserDTO user) {
-        return ResponseEntity.ok(userDetailsService.save(user));
+        if (userDetailsService.existsByUsername(user.getUsername())) {
+            throw new UserAlreadyExistsException(String.format("User %s with this name already exists", user.getUsername()));
+        } else
+            return ok(userDetailsService.save(user));
     }
 
     private void authenticate(String username, String password) throws Exception {
